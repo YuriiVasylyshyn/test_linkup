@@ -194,14 +194,7 @@ class _StingNominationState extends State<StingNomination> {
                 vote: vote,
                 onPressed: votefunc,
               ),
-              VoteButton(
-                vote: vote,
-                onPressed: votefunc,
-              ),
-              VoteButton(
-                vote: vote,
-                onPressed: votefunc,
-              ),
+              
               Container(
                 height: 60.0,
                 width: 274.0,
