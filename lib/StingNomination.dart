@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 import 'package:test_linkup/VoteScreen.dart';
+import 'package:test_linkup/button.dart';
 
 class StingNomination extends StatefulWidget {
   @override
@@ -10,36 +11,43 @@ class StingNomination extends StatefulWidget {
 
 class _StingNominationState extends State<StingNomination> {
   int randomnum;
+  bool vote = false;
+
   Random rand = Random();
 
-  int RandNum(n) {
+  int randNum(n) {
     return randomnum = rand.nextInt(n) + 1;
   }
 
   _StingNominationState() {
-    this.randomnum = RandNum(5);
+    this.randomnum = randNum(5);
   }
 
-  List players = [];
+  void votefunc() {
+    setState(() {
+      this.vote = !this.vote;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/bg2.jpg'),
-                fit: BoxFit.cover,
-              ),
+      body: Stack(children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/bg2.jpg'),
+              fit: BoxFit.cover,
             ),
           ),
+        ),
+      ListView(
+        children: <Widget>[
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Image(
                     image: AssetImage('icons/menu.png'),
@@ -146,6 +154,54 @@ class _StingNominationState extends State<StingNomination> {
                   ],
                 ),
               ),
+              VoteButton(
+                vote: vote,
+                onPressed: votefunc,
+              ),
+              VoteButton(
+                vote: vote,
+                onPressed: votefunc,
+              ),
+              VoteButton(
+                vote: vote,
+                onPressed: votefunc,
+              ),
+              VoteButton(
+                vote: vote,
+                onPressed: votefunc,
+              ),
+              VoteButton(
+                vote: vote,
+                onPressed: votefunc,
+              ),
+              VoteButton(
+                vote: vote,
+                onPressed: votefunc,
+              ),
+              VoteButton(
+                vote: vote,
+                onPressed: votefunc,
+              ),
+              VoteButton(
+                vote: vote,
+                onPressed: votefunc,
+              ),
+              VoteButton(
+                vote: vote,
+                onPressed: votefunc,
+              ),
+              VoteButton(
+                vote: vote,
+                onPressed: votefunc,
+              ),
+              VoteButton(
+                vote: vote,
+                onPressed: votefunc,
+              ),
+              VoteButton(
+                vote: vote,
+                onPressed: votefunc,
+              ),
               Container(
                 height: 60.0,
                 width: 274.0,
@@ -160,10 +216,10 @@ class _StingNominationState extends State<StingNomination> {
                 ),
                 child: RaisedButton(
                   onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => VoteScreen()),
-                );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => VoteScreen()),
+                    );
                   },
                   child: Text(
                     'Nominate',
@@ -179,7 +235,7 @@ class _StingNominationState extends State<StingNomination> {
             ],
           ),
         ],
-      ),
+      ),],),
     );
   }
 }
