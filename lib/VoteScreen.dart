@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:test_linkup/Fail.dart';
+import 'dart:async';
+
+import 'package:test_linkup/Success.dart';
 
 class VoteScreen extends StatefulWidget {
   @override
@@ -6,6 +10,47 @@ class VoteScreen extends StatefulWidget {
 }
 
 class _VoteScreenState extends State<VoteScreen> {
+  int counter = 0;
+  int counter2 = 0;
+
+  Timer _timer;
+  int _start = 5;
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) => setState(
+        () {
+          if (_start < 1) {
+            timer.cancel();
+            setState(() {
+              if (counter > counter2) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Success()),
+                );
+              } else
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Fail()),
+                );
+            });
+          } else {
+            _start = _start - 1;
+          }
+        },
+      ),
+    );
+  }
+
+  void initState() {
+    super.initState();
+    setState(() {
+      startTimer();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +108,7 @@ class _VoteScreenState extends State<VoteScreen> {
                 ],
               ),
               Text(
-                "ROUND 6: DOCKS",
+                "ROUND 6: DOCKS $_start",
                 style: TextStyle(
                   color: Color.fromRGBO(206, 17, 65, 1),
                   fontFamily: 'PaybAck',
@@ -111,37 +156,103 @@ class _VoteScreenState extends State<VoteScreen> {
                   fontSize: 30,
                 ),
               ),
-              Container(
-            height: 60.0,
-            width: 274.0,
-            margin: EdgeInsets.fromLTRB(0, 350, 0, 0),
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(123, 7, 37, 1),
-                  spreadRadius: 1,
-                  offset: Offset(0, 2),
-                ),
-              ],
-            ),
-            child: RaisedButton.icon(
-              onPressed: () {},
-              icon: Icon(
-                Icons.arrow_right,
-                color: Colors.white,
-                size: 50,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Container(
+                    height: 117,
+                    width: 117,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromRGBO(0, 78, 56, 1),
+                          spreadRadius: 2,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: RaisedButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          ++counter;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.thumb_up,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                      label: Container(
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color.fromRGBO(50, 50, 50, 1),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "$counter",
+                            style: TextStyle(
+                              fontFamily: "PaybAck",
+                              fontSize: 15,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      shape: CircleBorder(),
+                      color: Color.fromRGBO(0, 138, 99, 1),
+                    ),
+                  ),
+                  Container(
+                    height: 117,
+                    width: 117,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromRGBO(123, 7, 37, 1),
+                          spreadRadius: 2,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: RaisedButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          ++counter2;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.thumb_down,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                      label: Container(
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color.fromRGBO(50, 50, 50, 1),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "$counter2",
+                            style: TextStyle(
+                              fontFamily: "PaybAck",
+                              fontSize: 15,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      shape: CircleBorder(),
+                      color: Color.fromRGBO(206, 17, 65, 1),
+                    ),
+                  ),
+                ],
               ),
-              label: Text(
-                'New Game',
-                style: TextStyle(
-                  fontSize: 25,
-                  fontFamily: 'Typewriter',
-                  color: Colors.white,
-                ),
-              ),
-              color: Color.fromRGBO(206, 17, 65, 1),
-            ),
-          ),
             ],
           ),
         ],

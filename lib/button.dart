@@ -6,6 +6,7 @@ class VoteButton extends StatelessWidget {
   final Function onPressed;
   final img;
   final name;
+
   @override
   Widget build(BuildContext context) {
     return Container(

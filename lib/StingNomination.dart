@@ -11,7 +11,6 @@ class StingNomination extends StatefulWidget {
 
 class _StingNominationState extends State<StingNomination> {
   int randomnum;
-  bool vote = false;
 
   Random rand = Random();
 
@@ -23,22 +22,27 @@ class _StingNominationState extends State<StingNomination> {
     this.randomnum = randNum(5);
   }
 
-  List Players = [
-    {"id": 1, "name": "Alan", "img": "img1.png"},
-    {"id": 2, "name": "Alan", "img": "img1.png"},
-    {"id": 3, "name": "Alan", "img": "img1.png"},
-    {"id": 4, "name": "Alan", "img": "img1.png"},
-    {"id": 5, "name": "Alan", "img": "img1.png"},
-    {"id": 6, "name": "Alan", "img": "img1.png"},
-    {"id": 7, "name": "Alan", "img": "img1.png"},
-    {"id": 8, "name": "Alan", "img": "img1.png"},
-    {"id": 9, "name": "Alan", "img": "img1.png"},
-    {"id": 10, "name": "Alan", "img": "img1.png"}
+  List players = [
+    {"id": 1, "name": "Alan", "img": "assets/img1.png"},
+    {"id": 2, "name": "Bob", "img": "assets/img2.png"},
+    {"id": 3, "name": "Richard", "img": "assets/img1.png"},
+    {"id": 4, "name": "Andrew", "img": "assets/img2.png"},
+    {"id": 5, "name": "Adam", "img": "assets/img1.png"},
+    {"id": 6, "name": "Kate", "img": "assets/img8.png"},
+    {"id": 7, "name": "Loren", "img": "assets/img9.png"},
+    {"id": 8, "name": "Helen", "img": "assets/img8.png"},
+    {"id": 9, "name": "Sally", "img": "assets/img9.png"},
+    {"id": 10, "name": "Polly", "img": "assets/img8.png"}
   ];
 
-  void votefunc() {
+  List choosedPlayers = [];
+
+  void votefunc(id) {
     setState(() {
-      this.vote = !this.vote;
+      if (choosedPlayers.contains(id)) {
+        choosedPlayers.remove(id);
+      } else
+        choosedPlayers.add(id);
     });
   }
 
@@ -102,14 +106,15 @@ class _StingNominationState extends State<StingNomination> {
                   ),
                   Container(
                     margin: EdgeInsets.all(3),
-                    child:Text(
-                    "ROUND 2: AUTOMOBILE",
-                    style: TextStyle(
-                      color: Color.fromRGBO(206, 17, 65, 1),
-                      fontFamily: 'PaybAck',
-                      fontSize: 30,
+                    child: Text(
+                      "ROUND 2: AUTOMOBILE",
+                      style: TextStyle(
+                        color: Color.fromRGBO(206, 17, 65, 1),
+                        fontFamily: 'PaybAck',
+                        fontSize: 30,
+                      ),
                     ),
-                  ),),
+                  ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
                     child: Row(
@@ -143,16 +148,40 @@ class _StingNominationState extends State<StingNomination> {
                       ],
                     ),
                   ),
-                 Container( 
-                   margin: EdgeInsets.all(3),
-                   child: Text(
-                    "STING NOMINATION",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'PaybAck',
-                      fontSize: 30,
+                  Container(
+                    margin: EdgeInsets.all(3),
+                    child: Text(
+                      "STING NOMINATION",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'PaybAck',
+                        fontSize: 30,
+                      ),
                     ),
-                  ),),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        child: Text(
+                          'LEADER',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Image(
+                        image: AssetImage(
+                          'assets/img2.png',
+                        ),
+                        width: 45,
+                        height: 45,
+                      ),
+                    ],
+                  ),
                   RichText(
                     text: TextSpan(
                       style: TextStyle(
@@ -172,66 +201,16 @@ class _StingNominationState extends State<StingNomination> {
                       ],
                     ),
                   ),
-                  VoteButton(
-                    vote: vote,
-                    onPressed: votefunc,
-                    name: "Alan",
-                    img: 'assets/img1.png',
-                  ),
-                  VoteButton(
-                    vote: vote,
-                    onPressed: votefunc,
-                    name: "Alan",
-                    img: 'assets/img1.png',
-                  ),
-                  VoteButton(
-                    vote: vote,
-                    onPressed: votefunc,
-                    name: "Alan",
-                    img: 'assets/img1.png',
-                  ),
-                  VoteButton(
-                    vote: vote,
-                    onPressed: votefunc,
-                    name: "Alan",
-                    img: 'assets/img1.png',
-                  ),
-                  VoteButton(
-                    vote: vote,
-                    onPressed: votefunc,
-                    name: "Alan",
-                    img: 'assets/img1.png',
-                  ),
-                  VoteButton(
-                    vote: vote,
-                    onPressed: votefunc,
-                    name: "Alan",
-                    img: 'assets/img1.png',
-                  ),
-                  VoteButton(
-                    vote: vote,
-                    onPressed: votefunc,
-                    name: "Alan",
-                    img: 'assets/img1.png',
-                  ),
-                  VoteButton(
-                    vote: vote,
-                    onPressed: votefunc,
-                    name: "Alan",
-                    img: 'assets/img1.png',
-                  ),
-                  VoteButton(
-                    vote: vote,
-                    onPressed: votefunc,
-                    name: "Alan",
-                    img: 'assets/img1.png',
-                  ),
-                  VoteButton(
-                    vote: vote,
-                    onPressed: votefunc,
-                    name: "Alan",
-                    img: 'assets/img1.png',
-                  ),
+                  Column(
+                      children: players
+                          .map((item) => VoteButton(
+                              vote: choosedPlayers.contains(item["id"]),
+                              name: item["name"],
+                              img: item["img"],
+                              onPressed: () {
+                                votefunc(item["id"]);
+                              }))
+                          .toList()),
                   Container(
                     margin: EdgeInsets.all(7),
                     height: 60.0,
@@ -246,12 +225,15 @@ class _StingNominationState extends State<StingNomination> {
                       ],
                     ),
                     child: RaisedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => VoteScreen()),
-                        );
-                      },
+                      onPressed: choosedPlayers.length == randomnum
+                          ? () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => VoteScreen()),
+                              );
+                            }
+                          : null,
                       child: Text(
                         'Nominate',
                         style: TextStyle(
