@@ -44,10 +44,10 @@ class _StingNominationState extends State<StingNomination> {
       ListView(
         children: <Widget>[
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Image(
                     image: AssetImage('icons/menu.png'),
