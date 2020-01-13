@@ -196,6 +196,14 @@ class _VoteScreenState extends State<VoteScreen> {
                             Color(0xFFf44336)),
                       ),
                     ),
+              Text(
+                "OPERATORS",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'PaybAck',
+                  fontSize: 30,
+                ),
+              ),
               choosedPlayers != null
                   ? Wrap(
                       children: choosedPlayers
