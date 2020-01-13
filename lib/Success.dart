@@ -22,7 +22,6 @@ class _SuccessState extends State<Success> {
       (Timer timer) => setState(
         () {
           if (_start < 1) {
-            timer.cancel();
             setState(() {
               Navigator.push(
                 context,
@@ -35,6 +34,11 @@ class _SuccessState extends State<Success> {
         },
       ),
     );
+  }
+
+ void deactivate(){
+    super.deactivate();
+    _timer.cancel();
   }
 
   void initState() {

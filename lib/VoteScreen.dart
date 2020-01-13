@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_linkup/ChoosedPlayers.dart';
 import 'package:test_linkup/Fail.dart';
 import 'dart:async';
 
@@ -15,7 +16,7 @@ class _VoteScreenState extends State<VoteScreen> {
   int counter2 = 0;
 
   Timer _timer;
-  int _start = 15;
+  int _start = 999;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -24,7 +25,6 @@ class _VoteScreenState extends State<VoteScreen> {
       (Timer timer) => setState(
         () {
           if (_start < 1) {
-            timer.cancel();
             setState(() {
               if (counter > counter2) {
                 Navigator.push(
@@ -45,20 +45,57 @@ class _VoteScreenState extends State<VoteScreen> {
     );
   }
 
+  List<String> icons = [
+    "icons/menu.png",
+    "icons/street.png",
+    "icons/car.png",
+    "icons/appartment.png",
+    "icons/plate.png",
+    "icons/hotel.png",
+    "icons/docks.png"
+  ];
+
+  List<String> icons2 = [
+    "icons/redcircle.png",
+    "icons/redcircle.png",
+    "icons/whitecircle.png",
+    "icons/blackcircle.png",
+    "icons/blackcircle.png"
+  ];
+
   void initState() {
     super.initState();
     getData();
-    setState(() {
-      startTimer();
-    });
+    startTimer();
+  }
+
+  void deactivate() {
+    super.deactivate();
+    _timer.cancel();
+    remove();
+  }
+
+  void dispose() {
+    super.dispose();
+    remove();
   }
 
   var leader2;
+  var choosedPlayers;
+
+  void remove() async {
+    print('check...');
+    await removeFromAsyncStorage("choosedPlayers");
+    await removeFromAsyncStorage('leader2');
+  }
 
   getData() async {
     var date = await getFromAsyncStorage('string', 'leader', true);
+    var chosenPlayers =
+        await getFromAsyncStorage('string', 'choosedPlayers', true);
     setState(() {
       leader2 = date;
+      choosedPlayers = chosenPlayers;
     });
   }
 
@@ -79,45 +116,16 @@ class _VoteScreenState extends State<VoteScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Image(
-                    image: AssetImage('icons/menu.png'),
-                    height: 45,
-                    width: 45,
-                  ),
-                  Image(
-                    image: AssetImage('icons/street.png'),
-                    height: 45,
-                    width: 45,
-                  ),
-                  Image(
-                    image: AssetImage('icons/car.png'),
-                    height: 45,
-                    width: 45,
-                  ),
-                  Image(
-                    image: AssetImage('icons/appartment.png'),
-                    height: 45,
-                    width: 45,
-                  ),
-                  Image(
-                    image: AssetImage('icons/plate.png'),
-                    height: 45,
-                    width: 45,
-                  ),
-                  Image(
-                    image: AssetImage('icons/hotel.png'),
-                    height: 45,
-                    width: 45,
-                  ),
-                  Image(
-                    image: AssetImage('icons/docks.png'),
-                    height: 45,
-                    width: 45,
-                  ),
-                ],
-              ),
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: icons
+                      .map<Widget>(
+                        (item) => Image(
+                          image: AssetImage(item),
+                          width: 40,
+                          height: 40,
+                        ),
+                      )
+                      .toList()),
               Text(
                 "ROUND 6: DOCKS $_start",
                 style: TextStyle(
@@ -129,35 +137,16 @@ class _VoteScreenState extends State<VoteScreen> {
               Padding(
                 padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Image(
-                      image: AssetImage('icons/redcircle.png'),
-                      height: 20,
-                      width: 20,
-                    ),
-                    Image(
-                      image: AssetImage('icons/redcircle.png'),
-                      height: 20,
-                      width: 20,
-                    ),
-                    Image(
-                      image: AssetImage('icons/whitecircle.png'),
-                      height: 20,
-                      width: 20,
-                    ),
-                    Image(
-                      image: AssetImage('icons/blackcircle.png'),
-                      height: 20,
-                      width: 20,
-                    ),
-                    Image(
-                      image: AssetImage('icons/blackcircle.png'),
-                      height: 20,
-                      width: 20,
-                    ),
-                  ],
-                ),
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: icons2
+                        .map<Widget>(
+                          (item) => Image(
+                            image: AssetImage(item),
+                            width: 20,
+                            height: 20,
+                          ),
+                        )
+                        .toList()),
               ),
               Text(
                 "STING NOMINATION",
@@ -207,6 +196,15 @@ class _VoteScreenState extends State<VoteScreen> {
                             Color(0xFFf44336)),
                       ),
                     ),
+              choosedPlayers != null
+                  ? Wrap(
+                      children: choosedPlayers
+                          .map<Widget>((item) => ChoosedPlayers(
+                                name: item["name"],
+                                img: item["img"],
+                              ))
+                          .toList())
+                  : Container(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[

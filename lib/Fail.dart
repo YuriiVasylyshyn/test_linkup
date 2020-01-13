@@ -22,7 +22,6 @@ class _FailState extends State<Fail> {
       (Timer timer) => setState(
         () {
           if (_start < 1) {
-            timer.cancel();
             setState(() {
               Navigator.push(
                 context,
@@ -35,6 +34,11 @@ class _FailState extends State<Fail> {
         },
       ),
     );
+  }
+
+  void deactivate() {
+    super.deactivate();
+    _timer.cancel();
   }
 
   void initState() {

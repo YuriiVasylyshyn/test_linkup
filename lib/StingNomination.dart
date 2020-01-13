@@ -24,6 +24,24 @@ class _StingNominationState extends State<StingNomination> {
     this.randomnum = randNum(5);
   }
 
+  List<String> icons = [
+    "icons/menu.png",
+    "icons/street.png",
+    "icons/car.png",
+    "icons/appartment.png",
+    "icons/plate.png",
+    "icons/hotel.png",
+    "icons/docks.png"
+  ];
+
+  List<String> icons2 = [
+    "icons/redcircle.png",
+    "icons/redcircle.png",
+    "icons/whitecircle.png",
+    "icons/blackcircle.png",
+    "icons/blackcircle.png"
+  ];
+
   List players = [
     {"id": 1, "name": "Alan", "img": "assets/img1.png"},
     {"id": 2, "name": "Bob", "img": "assets/img2.png"},
@@ -47,11 +65,12 @@ class _StingNominationState extends State<StingNomination> {
   }
 
   void votefunc(id) {
+    var a = players.firstWhere((players) => players["id"] == id);
     setState(() {
-      if (choosedPlayers.contains(id)) {
-        choosedPlayers.remove(id);
+      if (choosedPlayers.contains(a)) {
+        choosedPlayers.remove(a);
       } else
-        choosedPlayers.add(id);
+        choosedPlayers.add(a);
     });
   }
 
@@ -74,45 +93,16 @@ class _StingNominationState extends State<StingNomination> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Image(
-                        image: AssetImage('icons/menu.png'),
-                        height: 45,
-                        width: 45,
-                      ),
-                      Image(
-                        image: AssetImage('icons/street.png'),
-                        height: 45,
-                        width: 45,
-                      ),
-                      Image(
-                        image: AssetImage('icons/car.png'),
-                        height: 45,
-                        width: 45,
-                      ),
-                      Image(
-                        image: AssetImage('icons/appartment.png'),
-                        height: 45,
-                        width: 45,
-                      ),
-                      Image(
-                        image: AssetImage('icons/plate.png'),
-                        height: 45,
-                        width: 45,
-                      ),
-                      Image(
-                        image: AssetImage('icons/hotel.png'),
-                        height: 45,
-                        width: 45,
-                      ),
-                      Image(
-                        image: AssetImage('icons/docks.png'),
-                        height: 45,
-                        width: 45,
-                      ),
-                    ],
-                  ),
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: icons
+                          .map<Widget>(
+                            (item) => Image(
+                              image: AssetImage(item),
+                              width: 40,
+                              height: 40,
+                            ),
+                          )
+                          .toList()),
                   Container(
                     margin: EdgeInsets.all(3),
                     child: Text(
@@ -128,33 +118,15 @@ class _StingNominationState extends State<StingNomination> {
                     padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Image(
-                          image: AssetImage('icons/redcircle.png'),
-                          height: 20,
-                          width: 20,
-                        ),
-                        Image(
-                          image: AssetImage('icons/redcircle.png'),
-                          height: 20,
-                          width: 20,
-                        ),
-                        Image(
-                          image: AssetImage('icons/whitecircle.png'),
-                          height: 20,
-                          width: 20,
-                        ),
-                        Image(
-                          image: AssetImage('icons/blackcircle.png'),
-                          height: 20,
-                          width: 20,
-                        ),
-                        Image(
-                          image: AssetImage('icons/blackcircle.png'),
-                          height: 20,
-                          width: 20,
-                        ),
-                      ],
+                      children: icons2
+                          .map<Widget>(
+                            (item) => Image(
+                              image: AssetImage(item),
+                              width: 20,
+                              height: 20,
+                            ),
+                          )
+                          .toList(),
                     ),
                   ),
                   Container(
@@ -221,8 +193,8 @@ class _StingNominationState extends State<StingNomination> {
                   ),
                   Column(
                       children: players
-                          .map((item) => VoteButton(
-                              vote: choosedPlayers.contains(item["id"]),
+                          .map<Widget>((item) => VoteButton(
+                              vote: choosedPlayers.contains(item),
                               name: item["name"],
                               img: item["img"],
                               onPressed: () {
@@ -244,14 +216,16 @@ class _StingNominationState extends State<StingNomination> {
                     ),
                     child: RaisedButton(
                       onPressed: choosedPlayers.length == randomnum
-                          ? () {
+                          ? () async {
+                              await addToAsyncStorage('string',
+                                  'choosedPlayers', jsonEncode(choosedPlayers));
+                              await addToAsyncStorage(
+                                  'string', 'leader', jsonEncode(leader));
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => VoteScreen()),
                               );
-                              addToAsyncStorage('string', 'choosedPlayers', jsonEncode(choosedPlayers));
-                              addToAsyncStorage('string', 'leader', jsonEncode(leader));
                             }
                           : null,
                       child: Text(
