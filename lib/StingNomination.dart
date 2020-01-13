@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'dart:convert';
 
 import 'package:test_linkup/VoteScreen.dart';
 import 'package:test_linkup/button.dart';
+import 'package:test_linkup/services/asyncStorage.dart';
 
 class StingNomination extends StatefulWidget {
   @override
@@ -11,7 +13,7 @@ class StingNomination extends StatefulWidget {
 
 class _StingNominationState extends State<StingNomination> {
   int randomnum;
-
+  var leader;
   Random rand = Random();
 
   int randNum(n) {
@@ -36,6 +38,13 @@ class _StingNominationState extends State<StingNomination> {
   ];
 
   List choosedPlayers = [];
+
+  void initState() {
+    super.initState();
+    setState(() {
+      leader = players[rand.nextInt(10)];
+    });
+  }
 
   void votefunc(id) {
     setState(() {
@@ -173,12 +182,21 @@ class _StingNominationState extends State<StingNomination> {
                           ),
                         ),
                       ),
-                      Image(
-                        image: AssetImage(
-                          'assets/img2.png',
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        child: Image(
+                          image: AssetImage(leader["img"]),
+                          height: 45,
+                          width: 45,
                         ),
-                        width: 45,
-                        height: 45,
+                      ),
+                      Text(
+                        leader["name"],
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
@@ -232,6 +250,8 @@ class _StingNominationState extends State<StingNomination> {
                                 MaterialPageRoute(
                                     builder: (context) => VoteScreen()),
                               );
+                              addToAsyncStorage('string', 'choosedPlayers', jsonEncode(choosedPlayers));
+                              addToAsyncStorage('string', 'leader', jsonEncode(leader));
                             }
                           : null,
                       child: Text(

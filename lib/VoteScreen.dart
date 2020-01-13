@@ -3,6 +3,7 @@ import 'package:test_linkup/Fail.dart';
 import 'dart:async';
 
 import 'package:test_linkup/Success.dart';
+import 'package:test_linkup/services/asyncStorage.dart';
 
 class VoteScreen extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _VoteScreenState extends State<VoteScreen> {
   int counter2 = 0;
 
   Timer _timer;
-  int _start = 5;
+  int _start = 15;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -46,8 +47,18 @@ class _VoteScreenState extends State<VoteScreen> {
 
   void initState() {
     super.initState();
+    getData();
     setState(() {
       startTimer();
+    });
+  }
+
+  var leader2;
+
+  getData() async {
+    var date = await getFromAsyncStorage('string', 'leader', true);
+    setState(() {
+      leader2 = date;
     });
   }
 
@@ -156,6 +167,46 @@ class _VoteScreenState extends State<VoteScreen> {
                   fontSize: 30,
                 ),
               ),
+              leader2 != null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.all(5),
+                          child: Text(
+                            'LEADER',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(5),
+                          child: Image(
+                            image: AssetImage(leader2["img"]),
+                            height: 45,
+                            width: 45,
+                          ),
+                        ),
+                        Text(
+                          leader2["name"],
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    )
+                  : Container(
+                      alignment: Alignment.center,
+                      child: new CircularProgressIndicator(
+                        valueColor: new AlwaysStoppedAnimation<Color>(
+                            Color(0xFFf44336)),
+                      ),
+                    ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
