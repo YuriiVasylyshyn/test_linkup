@@ -16,7 +16,7 @@ class _VoteScreenState extends State<VoteScreen> {
   int counter2 = 0;
 
   Timer _timer;
-  int _start = 999;
+  int _start = 15;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
