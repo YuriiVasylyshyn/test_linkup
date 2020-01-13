@@ -216,97 +216,113 @@ class _VoteScreenState extends State<VoteScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Container(
-                    height: 117,
-                    width: 117,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromRGBO(0, 78, 56, 1),
-                          spreadRadius: 2,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: RaisedButton.icon(
-                      onPressed: () {
-                        setState(() {
-                          ++counter;
-                        });
-                      },
-                      icon: Icon(
-                        Icons.thumb_up,
-                        color: Colors.white,
-                        size: 40,
-                      ),
-                      label: Container(
-                        width: 30,
-                        height: 30,
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        height: 117,
+                        width: 117,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color.fromRGBO(50, 50, 50, 1),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromRGBO(0, 78, 56, 1),
+                              spreadRadius: 2,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
                         ),
-                        child: Center(
-                          child: Text(
-                            "$counter",
-                            style: TextStyle(
-                              fontFamily: "PaybAck",
-                              fontSize: 15,
-                              color: Colors.white,
+                        child: RaisedButton(
+                          onPressed: () {
+                            setState(() {
+                              ++counter;
+                            });
+                          },
+                          child: Icon(
+                            Icons.thumb_up,
+                            color: Colors.white,
+                            size: 50,
+                          ),
+                          shape: CircleBorder(),
+                          color: Color.fromRGBO(0, 138, 99, 1),
+                        ),
+                      ),
+                      Positioned(
+                        top: 1,
+                        right: 1,
+                        child: Container(
+                          width: 45,
+                          height: 45,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color.fromRGBO(50, 50, 50, 1),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "$counter",
+                              style: TextStyle(
+                                fontFamily: "PaybAck",
+                                fontSize: 25,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      shape: CircleBorder(),
-                      color: Color.fromRGBO(0, 138, 99, 1),
-                    ),
+                      )
+                    ],
                   ),
-                  Container(
-                    height: 117,
-                    width: 117,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromRGBO(123, 7, 37, 1),
-                          spreadRadius: 2,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: RaisedButton.icon(
-                      onPressed: () {
-                        setState(() {
-                          ++counter2;
-                        });
-                      },
-                      icon: Icon(
-                        Icons.thumb_down,
-                        color: Colors.white,
-                        size: 40,
-                      ),
-                      label: Container(
-                        width: 30,
-                        height: 30,
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        height: 117,
+                        width: 117,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color.fromRGBO(50, 50, 50, 1),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromRGBO(123, 7, 37, 1),
+                              spreadRadius: 2,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
                         ),
-                        child: Center(
-                          child: Text(
-                            "$counter2",
-                            style: TextStyle(
-                              fontFamily: "PaybAck",
-                              fontSize: 15,
-                              color: Colors.white,
+                        child: RaisedButton(
+                          onPressed: () {
+                            setState(() {
+                              ++counter2;
+                            });
+                          },
+                          child: Icon(
+                            Icons.thumb_down,
+                            color: Colors.white,
+                            size: 50,
+                          ),
+                          shape: CircleBorder(),
+                          color: Color.fromRGBO(206, 17, 65, 1),
+                        ),
+                      ),
+                      Positioned(
+                        top: 1,
+                        right: 1,
+                        child: Container(
+                          width: 45,
+                          height: 45,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color.fromRGBO(50, 50, 50, 1),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "$counter2",
+                              style: TextStyle(
+                                fontFamily: "PaybAck",
+                                fontSize: 25,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                      shape: CircleBorder(),
-                      color: Color.fromRGBO(206, 17, 65, 1),
-                    ),
+                    ],
                   ),
                 ],
               ),
