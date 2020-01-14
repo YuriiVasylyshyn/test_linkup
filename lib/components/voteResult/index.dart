@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test_linkup/constants/listsToUse/index.dart';
 import 'package:test_linkup/main.dart';
 import 'dart:async';
-
+import 'package:test_linkup/components/voteButton/index.dart';
 import 'package:test_linkup/screens/stingNomination/index.dart';
 
 class VoteResult extends StatefulWidget {
@@ -156,108 +156,18 @@ class _VoteResultState extends State<VoteResult> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Stack(
-                    children: <Widget>[
-                      Container(
-                        height: 117,
-                        width: 117,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(0, 78, 56, 1),
-                              spreadRadius: 2,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: RaisedButton.icon(
-                          onPressed: null,
-                          icon: Icon(
-                            Icons.thumb_up,
-                            color: Colors.white,
-                            size: 40,
-                          ),
-                          label: Text(""),
-                          shape: CircleBorder(),
-                          color: Color.fromRGBO(0, 138, 99, 1),
-                        ),
-                      ),
-                      Positioned(
-                        top: 1,
-                        right: 1,
-                        child: Container(
-                          width: 45,
-                          height: 45,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color.fromRGBO(50, 50, 50, 1),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "${widget.countLike}",
-                              style: TextStyle(
-                                fontFamily: "PaybAck",
-                                fontSize: 25,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                  VoteButtons(
+                    counterr: widget.countLike,
+                    shadowColor: Color.fromRGBO(0, 78, 56, 1),
+                    buttonColor: Color.fromRGBO(0, 138, 99, 1),
+                    icon: Icons.thumb_up,
                   ),
-                  Stack(
-                    children: <Widget>[
-                      Container(
-                        height: 117,
-                        width: 117,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(123, 7, 37, 1),
-                              spreadRadius: 2,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: RaisedButton.icon(
-                          onPressed: null,
-                          icon: Icon(
-                            Icons.thumb_down,
-                            color: Colors.white,
-                            size: 40,
-                          ),
-                          label: Text(''),
-                          shape: CircleBorder(),
-                          color: Color.fromRGBO(206, 17, 65, 1),
-                        ),
-                      ),
-                      Positioned(
-                        top: 1,
-                        right: 1,
-                        child: Container(
-                          width: 45,
-                          height: 45,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color.fromRGBO(50, 50, 50, 1),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "${widget.countDislike}",
-                              style: TextStyle(
-                                fontFamily: "PaybAck",
-                                fontSize: 25,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
+                  VoteButtons(
+                    counterr: widget.countDislike,
+                    shadowColor: Color.fromRGBO(123, 7, 37, 1),
+                    buttonColor: Color.fromRGBO(206, 17, 65, 1),
+                    icon: Icons.thumb_down,
+                  ),
                 ],
               ),
             ],

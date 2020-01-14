@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_linkup/components/choosedPlayers/index.dart';
+import 'package:test_linkup/components/voteButton/index.dart';
 import 'dart:async';
 
 import 'package:test_linkup/components/voteResult/index.dart';
@@ -21,6 +22,18 @@ class _VoteScreenState extends State<VoteScreen> {
 
   var leader2;
   var choosedPlayers;
+
+  incrementLike() {
+    setState(() {
+      likeCount++;
+    });
+  }
+
+  incrementDislike() {
+    setState(() {
+      dislikeCount++;
+    });
+  }
 
   void startTimer() {
     _timer = new Timer.periodic(
@@ -205,113 +218,19 @@ class _VoteScreenState extends State<VoteScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Stack(
-                    children: <Widget>[
-                      Container(
-                        height: 117,
-                        width: 117,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(0, 78, 56, 1),
-                              spreadRadius: 2,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: RaisedButton(
-                          onPressed: () {
-                            setState(() {
-                              likeCount++;
-                            });
-                          },
-                          child: Icon(
-                            Icons.thumb_up,
-                            color: Colors.white,
-                            size: 50,
-                          ),
-                          shape: CircleBorder(),
-                          color: Color.fromRGBO(0, 138, 99, 1),
-                        ),
-                      ),
-                      Positioned(
-                        top: 1,
-                        right: 1,
-                        child: Container(
-                          width: 45,
-                          height: 45,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color.fromRGBO(50, 50, 50, 1),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "$likeCount",
-                              style: TextStyle(
-                                fontFamily: "PaybAck",
-                                fontSize: 25,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
+                  VoteButtons(
+                    counterr: likeCount,
+                    shadowColor: Color.fromRGBO(0, 78, 56, 1),
+                    buttonColor: Color.fromRGBO(0, 138, 99, 1),
+                    icon: Icons.thumb_up,
+                    onPressed: incrementLike,
                   ),
-                  Stack(
-                    children: <Widget>[
-                      Container(
-                        height: 117,
-                        width: 117,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(123, 7, 37, 1),
-                              spreadRadius: 2,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: RaisedButton(
-                          onPressed: () {
-                            setState(() {
-                              dislikeCount++;
-                            });
-                          },
-                          child: Icon(
-                            Icons.thumb_down,
-                            color: Colors.white,
-                            size: 50,
-                          ),
-                          shape: CircleBorder(),
-                          color: Color.fromRGBO(206, 17, 65, 1),
-                        ),
-                      ),
-                      Positioned(
-                        top: 1,
-                        right: 1,
-                        child: Container(
-                          width: 45,
-                          height: 45,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color.fromRGBO(50, 50, 50, 1),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "$dislikeCount",
-                              style: TextStyle(
-                                fontFamily: "PaybAck",
-                                fontSize: 25,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                  VoteButtons(
+                    counterr: dislikeCount,
+                    shadowColor: Color.fromRGBO(123, 7, 37, 1),
+                    buttonColor: Color.fromRGBO(206, 17, 65, 1),
+                    icon: Icons.thumb_down,
+                    onPressed: incrementDislike,
                   ),
                 ],
               ),
