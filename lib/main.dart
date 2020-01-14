@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:test_linkup/StingNomination.dart';
+import 'package:test_linkup/screens/stingNomination/index.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -21,41 +21,62 @@ class Home extends StatelessWidget {
           ),
         ),
         Center(
-          child: Container(
-            height: 60.0,
-            width: 274.0,
-            margin: EdgeInsets.fromLTRB(0, 350, 0, 0),
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(123, 7, 37, 1),
-                  spreadRadius: 1,
-                  offset: Offset(0, 2),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                height: 150.0,
+                width: 150.0,
+                child: Image(
+                  image: AssetImage('assets/logo.png'),
                 ),
-              ],
-            ),
-            child: RaisedButton.icon(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => StingNomination()),
-                );
-              },
-              icon: Icon(
-                Icons.arrow_right,
-                color: Colors.white,
-                size: 50,
               ),
-              label: Text(
-                'New Game',
+              Text(
+                'mafia moles',
                 style: TextStyle(
-                  fontSize: 25,
-                  fontFamily: 'Typewriter',
+                  fontFamily: 'PaybAck',
+                  fontSize: 50,
                   color: Colors.white,
                 ),
               ),
-              color: Color.fromRGBO(206, 17, 65, 1),
-            ),
+              Container(
+                width: 274,
+                height: 60,
+                margin: EdgeInsets.only(top: 20),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromRGBO(123, 7, 37, 1),
+                      spreadRadius: 1,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: RaisedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => StingNomination()),
+                    );
+                  },
+                  icon: Icon(
+                    Icons.arrow_right,
+                    color: Colors.white,
+                    size: 50,
+                  ),
+                  label: Text(
+                    'New Game',
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontFamily: 'Typewriter',
+                      color: Colors.white,
+                    ),
+                  ),
+                  color: Color.fromRGBO(206, 17, 65, 1),
+                ),
+              ),
+            ],
           ),
         ),
       ]),
