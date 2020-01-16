@@ -13,6 +13,7 @@ class _ChoosedPlayersState extends State<ChoosedPlayers> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.all(1),
       decoration: BoxDecoration(
           border: Border.all(),
           color: Color.fromRGBO(42, 42, 42, 1),

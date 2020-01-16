@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_linkup/components/redButton/index.dart';
 import 'dart:math';
 import 'dart:convert';
 
@@ -36,7 +37,7 @@ class _StingNominationState extends State<StingNomination> {
   }
 
   void votefunc(id) {
-    var a = players.firstWhere((players) => players["id"] == id);
+    var a = players.firstWhere((players) => players['id'] == id);
     setState(() {
       if (choosedPlayers.contains(a)) {
         choosedPlayers.remove(a);
@@ -77,7 +78,7 @@ class _StingNominationState extends State<StingNomination> {
                   Container(
                     margin: EdgeInsets.all(3),
                     child: Text(
-                      "ROUND 2: AUTOMOBILE",
+                      'ROUND 2: AUTOMOBILE',
                       style: TextStyle(
                         color: Color.fromRGBO(206, 17, 65, 1),
                         fontFamily: 'PaybAck',
@@ -103,7 +104,7 @@ class _StingNominationState extends State<StingNomination> {
                   Container(
                     margin: EdgeInsets.all(3),
                     child: Text(
-                      "STING NOMINATION",
+                      'STING NOMINATION',
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'PaybAck',
@@ -128,13 +129,13 @@ class _StingNominationState extends State<StingNomination> {
                       Container(
                         margin: EdgeInsets.all(5),
                         child: Image(
-                          image: AssetImage(leader["img"]),
+                          image: AssetImage(leader['img']),
                           height: 45,
                           width: 45,
                         ),
                       ),
                       Text(
-                        leader["name"],
+                        leader['name'],
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 25,
@@ -151,14 +152,14 @@ class _StingNominationState extends State<StingNomination> {
                         fontSize: 30,
                       ),
                       children: [
-                        TextSpan(text: "NOMINATE "),
+                        TextSpan(text: 'NOMINATE '),
                         TextSpan(
                           text: '$randomnum',
                           style: TextStyle(
                             color: Color.fromRGBO(206, 17, 65, 1),
                           ),
                         ),
-                        TextSpan(text: " PLAYERS"),
+                        TextSpan(text: ' PLAYERS'),
                       ],
                     ),
                   ),
@@ -166,49 +167,30 @@ class _StingNominationState extends State<StingNomination> {
                       children: players
                           .map<Widget>((item) => VoteButton(
                               vote: choosedPlayers.contains(item),
-                              name: item["name"],
-                              img: item["img"],
+                              name: item['name'],
+                              img: item['img'],
+                              iconChange: true,
                               onPressed: () {
-                                votefunc(item["id"]);
+                                votefunc(item['id']);
                               }))
                           .toList()),
-                  Container(
-                    margin: EdgeInsets.all(7),
-                    height: 60.0,
-                    width: 274.0,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromRGBO(123, 7, 37, 1),
-                          spreadRadius: 1,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: RaisedButton(
-                      onPressed: choosedPlayers.length == randomnum
-                          ? () async {
-                              await addToAsyncStorage('string',
-                                  'choosedPlayers', jsonEncode(choosedPlayers));
-                              await addToAsyncStorage(
-                                  'string', 'leader', jsonEncode(leader));
-                              Navigator.push(
+                  RedButton(
+                    padding: true,
+                    icon: null,
+                    text: 'Nominate',
+                    onPressed: choosedPlayers.length == randomnum
+                        ? () async {
+                            await addToAsyncStorage('string', 'choosedPlayers',
+                                jsonEncode(choosedPlayers));
+                            await addToAsyncStorage(
+                                'string', 'leader', jsonEncode(leader));
+                            Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => VoteScreen()),
-                              );
-                            }
-                          : null,
-                      child: Text(
-                        'Nominate',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontFamily: 'Typewriter',
-                          color: Colors.white,
-                        ),
-                      ),
-                      color: Color.fromRGBO(206, 17, 65, 1),
-                    ),
+                                    builder: (context) => VoteScreen()));
+                            // (Route<dynamic> route) => false);
+                          }
+                        : null,
                   ),
                 ],
               ),

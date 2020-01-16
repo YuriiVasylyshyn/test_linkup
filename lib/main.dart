@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_linkup/components/redButton/index.dart';
 
 import 'package:test_linkup/screens/stingNomination/index.dart';
 
@@ -39,42 +40,16 @@ class Home extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              Container(
-                width: 274,
-                height: 60,
-                margin: EdgeInsets.only(top: 20),
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(123, 7, 37, 1),
-                      spreadRadius: 1,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: RaisedButton.icon(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => StingNomination()),
-                    );
-                  },
-                  icon: Icon(
-                    Icons.arrow_right,
-                    color: Colors.white,
-                    size: 50,
-                  ),
-                  label: Text(
-                    'New Game',
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontFamily: 'Typewriter',
-                      color: Colors.white,
-                    ),
-                  ),
-                  color: Color.fromRGBO(206, 17, 65, 1),
-                ),
+              RedButton(
+                padding: false,
+                text: 'New Game',
+                icon: Icons.arrow_right,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => StingNomination()),
+                  );
+                },
               ),
             ],
           ),

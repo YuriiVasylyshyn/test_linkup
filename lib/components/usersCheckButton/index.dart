@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
 class VoteButton extends StatelessWidget {
-  VoteButton({this.vote, @required this.onPressed, this.img, this.name});
+  VoteButton(
+      {this.vote,
+      @required this.onPressed,
+      this.img,
+      this.name,
+      this.iconChange});
   final vote;
   final Function onPressed;
   final img;
   final name;
+  final iconChange;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +30,15 @@ class VoteButton extends StatelessWidget {
       ),
       child: RaisedButton.icon(
         onPressed: onPressed,
-        icon: Icon(
-          vote ? Icons.check_box : Icons.check_box_outline_blank,
-          color: vote ? Colors.white : Color.fromRGBO(82, 82, 82, 1),
-          size: 30,
-        ),
+        icon: iconChange
+            ? Icon(vote ? Icons.check_box : Icons.check_box_outline_blank,
+                color: vote ? Colors.white : Color.fromRGBO(82, 82, 82, 1),
+                size: 30)
+            : Icon(
+                vote ? Icons.album : Icons.lens,
+                color: vote ? Colors.white : Color.fromRGBO(82, 82, 82, 1),
+                size: 30,
+              ),
         label: Row(
           children: [
             Image(

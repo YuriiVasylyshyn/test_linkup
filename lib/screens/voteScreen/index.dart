@@ -18,7 +18,7 @@ class _VoteScreenState extends State<VoteScreen> {
   int dislikeCount = 0;
 
   Timer _timer;
-  int _start = 15;
+  int _start = 5;
 
   var leader2;
   var choosedPlayers;
@@ -69,13 +69,11 @@ class _VoteScreenState extends State<VoteScreen> {
   void deactivate() {
     super.deactivate();
     _timer.cancel();
-    remove();
   }
 
   @override
   void dispose() {
     super.dispose();
-    remove();
   }
 
   void remove() async {

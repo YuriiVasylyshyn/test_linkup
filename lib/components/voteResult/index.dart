@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test_linkup/constants/listsToUse/index.dart';
-import 'package:test_linkup/main.dart';
 import 'dart:async';
 import 'package:test_linkup/components/voteButton/index.dart';
+import 'package:test_linkup/screens/placeYourVote/index.dart';
 import 'package:test_linkup/screens/stingNomination/index.dart';
 
 class VoteResult extends StatefulWidget {
@@ -16,7 +16,7 @@ class VoteResult extends StatefulWidget {
 
 class _VoteResultState extends State<VoteResult> {
   Timer _timer;
-  int _start = 15;
+  int _start = 5;
 
   void startTimer() {
     _timer = new Timer.periodic(
@@ -27,7 +27,7 @@ class _VoteResultState extends State<VoteResult> {
             widget.res
                 ? Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Home()),
+                    MaterialPageRoute(builder: (context) => PlaceYourVote()),
                   )
                 : Navigator.push(
                     context,
@@ -107,42 +107,25 @@ class _VoteResultState extends State<VoteResult> {
                       )
                     ],
                   ),
-                  widget.res
-                      ? Text(
-                          "Succes",
-                          style: TextStyle(
-                              color: Color.fromRGBO(0, 138, 99, 1),
-                              fontFamily: "PaybAck",
-                              fontSize: 50),
-                        )
-                      : Text(
-                          "FAILS",
-                          style: TextStyle(
-                              color: Color.fromRGBO(206, 17, 65, 1),
-                              fontFamily: "PaybAck",
-                              fontSize: 50),
-                        ),
+                  Text(
+                    widget.res ? 'Succes' : 'fails',
+                    style: TextStyle(
+                        color: Color.fromRGBO(0, 138, 99, 1),
+                        fontFamily: "PaybAck",
+                        fontSize: 50),
+                  ),
                 ],
               ),
               Column(
                 children: <Widget>[
-                  widget.res
-                      ? Text(
-                          "Sting begins in",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: "PaybAck",
-                            fontSize: 30,
-                          ),
-                        )
-                      : Text(
-                          "Next nomination in",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: "PaybAck",
-                            fontSize: 30,
-                          ),
-                        ),
+                  Text(
+                    widget.res ? 'Sting begins in' : 'Next nomination in',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "PaybAck",
+                      fontSize: 30,
+                    ),
+                  ),
                   Text(
                     "$_start",
                     style: TextStyle(
