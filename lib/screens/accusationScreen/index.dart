@@ -22,7 +22,6 @@ class AccusationScreen extends StatefulWidget {
 
 class _AccusationScreenState extends State<AccusationScreen> {
   Object choosedPlayer;
-
   bool check = true;
 
   void votefunc(item) {
@@ -167,7 +166,6 @@ class _AccusationScreenState extends State<AccusationScreen> {
                             MaterialPageRoute(
                                 builder: (context) => HitmanScreen(
                                       chosenPlayer: check,
-                                      alive: false,
                                     )));
                       },
                     ),

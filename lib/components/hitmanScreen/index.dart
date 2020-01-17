@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:test_linkup/components/choosedPlayers/index.dart';
 import 'package:test_linkup/components/redButton/index.dart';
 import 'package:test_linkup/constants/listsToUse/index.dart';
 import 'package:test_linkup/services/asyncStorage/index.dart';
@@ -9,24 +9,31 @@ import 'package:test_linkup/services/asyncStorage/index.dart';
 import '../../main.dart';
 
 class HitmanScreen extends StatefulWidget {
-  HitmanScreen({this.chosenPlayer, this.alive, this.murdered});
+  HitmanScreen({this.chosenPlayer});
   final chosenPlayer;
-  final alive;
-  final murdered;
+
   @override
   _HitmanScreenState createState() => _HitmanScreenState();
 }
 
 class _HitmanScreenState extends State<HitmanScreen> {
   Timer _timer;
-  int _start = 5;
+  int _start = 1;
   var choosedHitman;
+  var aliveOrMurdered = true;
+
   void startTimer() {
     _timer = new Timer.periodic(
       const Duration(seconds: 1),
       (Timer timer) => setState(
         () {
           if (_start < 1) {
+            if (choosedHitman['profiler'] == true ||
+                choosedHitman['informant'] == true) {
+              aliveOrMurdered = false;
+            } else {
+              aliveOrMurdered = true;
+            }
           } else {
             _start = _start - 1;
           }
@@ -64,7 +71,9 @@ class _HitmanScreenState extends State<HitmanScreen> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/bg2.jpg'),
+                image: AssetImage(
+                  'assets/bg2.jpg',
+                ),
                 fit: BoxFit.cover,
               ),
             ),
@@ -97,8 +106,9 @@ class _HitmanScreenState extends State<HitmanScreen> {
               Text(
                 widget.chosenPlayer ? 'profiler' : 'informant',
                 style: TextStyle(
-                    decoration:
-                        widget.alive ? TextDecoration.lineThrough : null,
+                    decoration: aliveOrMurdered
+                        ? TextDecoration.none
+                        : TextDecoration.lineThrough,
                     decorationColor: Color.fromRGBO(206, 17, 65, 1),
                     decorationThickness: 3,
                     fontFamily: 'PaybAck',
@@ -109,13 +119,42 @@ class _HitmanScreenState extends State<HitmanScreen> {
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.all(5),
-                          child: Image(
-                            image: AssetImage(choosedHitman["img"]),
-                            height: 142.5,
-                            width: 142.5,
-                          ),
+                        Stack(
+                          children: <Widget>[
+                            Image(
+                              image: AssetImage(
+                                choosedHitman["img"],
+                              ),
+                              height: 160,
+                              width: 160,
+                            ),
+                            Positioned(
+                              top: 40,
+                              left: 38,
+                              child: RotationTransition(
+                                turns: AlwaysStoppedAnimation(340 / 360),
+                                child: Text(
+                                  aliveOrMurdered ? 'ALIVE!' : 'MURDERED!',
+                                  style: TextStyle(
+                                      shadows: [
+                                        aliveOrMurdered
+                                            ? Shadow(
+                                                blurRadius: 5,
+                                                color: Colors.blueAccent,
+                                                offset: Offset(0, 0),
+                                              )
+                                            : null
+                                      ],
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: aliveOrMurdered ? 20 : 15,
+                                      fontFamily: 'PaybAck',
+                                      color: aliveOrMurdered
+                                          ? Colors.white
+                                          : Color.fromRGBO(206, 17, 65, 1)),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         Text(
                           choosedHitman["name"],
@@ -127,29 +166,23 @@ class _HitmanScreenState extends State<HitmanScreen> {
                         ),
                       ],
                     )
-                  : Container(
-                      alignment: Alignment.center,
-                      child: new CircularProgressIndicator(
-                        valueColor: new AlwaysStoppedAnimation<Color>(
-                            Color(0xFFf44336)),
-                      ),
-                    ),
+                  : Container(),
               Text(
                 '$_start',
                 style: TextStyle(
                     fontSize: 50, fontFamily: 'PaybAck', color: Colors.white),
               ),
               RedButton(
-                padding: false,
-                icon: Icons.arrow_right,
-                text: 'next',
+                padding: true,
+                icon: null,
+                text: 'Next',
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Home()),
                   );
                 },
-              )
+              ),
             ],
           ),
         ],
