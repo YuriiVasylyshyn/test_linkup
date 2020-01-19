@@ -21,6 +21,7 @@ class _HitmanScreenState extends State<HitmanScreen> {
   int _start = 1;
   var choosedHitman;
   var aliveOrMurdered = true;
+  bool timerEnd = false;
 
   void startTimer() {
     _timer = new Timer.periodic(
@@ -28,8 +29,11 @@ class _HitmanScreenState extends State<HitmanScreen> {
       (Timer timer) => setState(
         () {
           if (_start < 1) {
-            if (choosedHitman['profiler'] == true ||
-                choosedHitman['informant'] == true) {
+            timerEnd = true;
+            if ((choosedHitman['profiler'] == true &&
+                    widget.chosenPlayer == true) ||
+                choosedHitman['informant'] == true &&
+                    widget.chosenPlayer == false) {
               aliveOrMurdered = false;
             } else {
               aliveOrMurdered = true;
@@ -106,9 +110,9 @@ class _HitmanScreenState extends State<HitmanScreen> {
               Text(
                 widget.chosenPlayer ? 'profiler' : 'informant',
                 style: TextStyle(
-                    decoration: aliveOrMurdered
-                        ? TextDecoration.none
-                        : TextDecoration.lineThrough,
+                    decoration: timerEnd && aliveOrMurdered
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
                     decorationColor: Color.fromRGBO(206, 17, 65, 1),
                     decorationThickness: 3,
                     fontFamily: 'PaybAck',
@@ -120,33 +124,47 @@ class _HitmanScreenState extends State<HitmanScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Stack(
+                          overflow: Overflow.visible,
                           children: <Widget>[
-                            Image(
-                              image: AssetImage(
-                                choosedHitman["img"],
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(500),
+                              child: ColorFiltered(
+                                colorFilter: ColorFilter.mode(
+                                    timerEnd && !aliveOrMurdered
+                                        ? Colors.grey
+                                        : Colors.white.withOpacity(0),
+                                    BlendMode.color),
+                                child: Image(
+                                  image: AssetImage(
+                                    choosedHitman["img"],
+                                  ),
+                                  height: 143,
+                                  width: 143,
+                                  fit: BoxFit.contain,
+                                ),
                               ),
-                              height: 160,
-                              width: 160,
                             ),
                             Positioned(
-                              top: 40,
-                              left: 38,
+                              top: aliveOrMurdered ? 10 : 50,
+                              left: aliveOrMurdered ? 5 : 0,
                               child: RotationTransition(
                                 turns: AlwaysStoppedAnimation(340 / 360),
                                 child: Text(
-                                  aliveOrMurdered ? 'ALIVE!' : 'MURDERED!',
+                                  timerEnd
+                                      ? aliveOrMurdered ? 'ALIVE!' : 'MURDERED!'
+                                      : '',
                                   style: TextStyle(
                                       shadows: [
                                         aliveOrMurdered
                                             ? Shadow(
-                                                blurRadius: 5,
+                                                blurRadius: 1,
                                                 color: Colors.blueAccent,
-                                                offset: Offset(0, 0),
+                                                offset: Offset(3, 3),
                                               )
                                             : null
                                       ],
                                       fontWeight: FontWeight.bold,
-                                      fontSize: aliveOrMurdered ? 20 : 15,
+                                      fontSize: 32.5,
                                       fontFamily: 'PaybAck',
                                       color: aliveOrMurdered
                                           ? Colors.white
@@ -167,22 +185,25 @@ class _HitmanScreenState extends State<HitmanScreen> {
                       ],
                     )
                   : Container(),
-              Text(
-                '$_start',
-                style: TextStyle(
-                    fontSize: 50, fontFamily: 'PaybAck', color: Colors.white),
-              ),
-              RedButton(
-                padding: true,
-                icon: null,
-                text: 'Next',
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home()),
-                  );
-                },
-              ),
+              timerEnd
+                  ? RedButton(
+                      padding: true,
+                      icon: null,
+                      text: 'Next',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Home()),
+                        );
+                      },
+                    )
+                  : Text(
+                      '$_start',
+                      style: TextStyle(
+                          fontSize: 50,
+                          fontFamily: 'PaybAck',
+                          color: Colors.white),
+                    ),
             ],
           ),
         ],

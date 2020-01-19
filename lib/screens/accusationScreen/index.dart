@@ -33,12 +33,14 @@ class _AccusationScreenState extends State<AccusationScreen> {
   void profButton() {
     setState(() {
       check = true;
+      print(check);
     });
   }
 
   void infButton() {
     setState(() {
       check = false;
+      print(check);
     });
   }
 
