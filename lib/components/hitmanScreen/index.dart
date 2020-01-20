@@ -18,7 +18,7 @@ class HitmanScreen extends StatefulWidget {
 
 class _HitmanScreenState extends State<HitmanScreen> {
   Timer _timer;
-  int _start = 1;
+  int _start = 5;
   var choosedHitman;
   var aliveOrMurdered = true;
   bool timerEnd = false;
@@ -145,32 +145,29 @@ class _HitmanScreenState extends State<HitmanScreen> {
                               ),
                             ),
                             Positioned(
-                              top: aliveOrMurdered ? 10 : 50,
-                              left: aliveOrMurdered ? 5 : 0,
+                              top: aliveOrMurdered ? 5 : 50,
+                              left: aliveOrMurdered ? 2 : 0,
                               child: RotationTransition(
-                                turns: AlwaysStoppedAnimation(340 / 360),
-                                child: Text(
-                                  timerEnd
-                                      ? aliveOrMurdered ? 'ALIVE!' : 'MURDERED!'
-                                      : '',
-                                  style: TextStyle(
-                                      shadows: [
-                                        aliveOrMurdered
-                                            ? Shadow(
-                                                blurRadius: 1,
-                                                color: Colors.blueAccent,
-                                                offset: Offset(3, 3),
-                                              )
-                                            : null
-                                      ],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 32.5,
-                                      fontFamily: 'PaybAck',
-                                      color: aliveOrMurdered
-                                          ? Colors.white
-                                          : Color.fromRGBO(206, 17, 65, 1)),
-                                ),
-                              ),
+                                  turns: AlwaysStoppedAnimation(340 / 360),
+                                  child: timerEnd
+                                      ? aliveOrMurdered
+                                          ? Image(
+                                              image: AssetImage(
+                                                  'assets/alive!.png'),
+                                              height: 70,
+                                              width: 90,
+                                            )
+                                          : Text(
+                                              'murdered!',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 32.5,
+                                                fontFamily: 'PaybAck',
+                                                color: Color.fromRGBO(
+                                                    206, 17, 65, 1),
+                                              ),
+                                            )
+                                      : null),
                             ),
                           ],
                         ),

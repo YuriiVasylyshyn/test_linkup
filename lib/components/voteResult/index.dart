@@ -16,7 +16,7 @@ class VoteResult extends StatefulWidget {
 
 class _VoteResultState extends State<VoteResult> {
   Timer _timer;
-  int _start = 5;
+  int _start = 15;
 
   void startTimer() {
     _timer = new Timer.periodic(

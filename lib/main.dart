@@ -40,16 +40,20 @@ class Home extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              RedButton(
-                padding: false,
-                text: 'New Game',
-                icon: Icons.arrow_right,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => StingNomination()),
-                  );
-                },
+              Padding(
+                padding: EdgeInsets.only(top: 145),
+                child: RedButton(
+                  padding: false,
+                  text: 'New Game',
+                  icon: Icons.arrow_right,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => StingNomination()),
+                    );
+                  },
+                ),
               ),
             ],
           ),
