@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_linkup/constants/listsToUse/index.dart';
+import 'package:test_linkup/components/header/index.dart';
 import 'package:test_linkup/components/CoopOrSabButton/index.dart';
 
 class PlaceYourVote extends StatefulWidget {
@@ -10,31 +10,12 @@ class PlaceYourVote extends StatefulWidget {
 class _PlaceYourVoteState extends State<PlaceYourVote> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(
+    return Stack(
       children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/bg2.jpg'),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: icons
-                    .map<Widget>(
-                      (item) => Image(
-                        image: AssetImage(item),
-                        width: 40,
-                        height: 40,
-                      ),
-                    )
-                    .toList()),
+            Header(),
             Column(children: <Widget>[
               Text(
                 "place your",
@@ -68,6 +49,6 @@ class _PlaceYourVoteState extends State<PlaceYourVote> {
           ],
         ),
       ],
-    ));
+    );
   }
 }

@@ -20,7 +20,6 @@ class VoteButtons extends StatefulWidget {
 class _VoteButtonsState extends State<VoteButtons> {
   @override
   Widget build(BuildContext context) {
-    print(widget.counterr);
     return Stack(
       children: <Widget>[
         Container(

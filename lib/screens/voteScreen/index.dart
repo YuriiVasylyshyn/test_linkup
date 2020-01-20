@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:test_linkup/components/choosedPlayers/index.dart';
+import 'package:test_linkup/components/header/index.dart';
 import 'package:test_linkup/components/voteButton/index.dart';
 import 'dart:async';
 
-import 'package:test_linkup/components/voteResult/index.dart';
+import 'package:test_linkup/components/wrapper/index.dart';
 import 'package:test_linkup/services/asyncStorage/index.dart';
 
 import 'package:test_linkup/constants/listsToUse/index.dart';
@@ -18,7 +19,7 @@ class _VoteScreenState extends State<VoteScreen> {
   int dislikeCount = 0;
 
   Timer _timer;
-  int _start = 15;
+  int _start = 5;
 
   var leader2;
   var choosedPlayers;
@@ -44,7 +45,8 @@ class _VoteScreenState extends State<VoteScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => VoteResult(
+                  builder: (context) => Wrapper(
+                        screen: 'voteResult',
                         res: likeCount > dislikeCount,
                         countLike: likeCount,
                         countDislike: dislikeCount,
@@ -93,149 +95,123 @@ class _VoteScreenState extends State<VoteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/bg2.jpg'),
-                fit: BoxFit.cover,
+    return Stack(
+      children: <Widget>[
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Header(),
+            Text(
+              "ROUND 6: DOCKS",
+              style: TextStyle(
+                color: Color.fromRGBO(206, 17, 65, 1),
+                fontFamily: 'PaybAck',
+                fontSize: 30,
               ),
             ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: icons
+            Text(
+              "Timer: $_start",
+              style: TextStyle(
+                color: Color.fromRGBO(206, 17, 65, 1),
+                fontFamily: 'PaybAck',
+                fontSize: 30,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: icons2
                       .map<Widget>(
                         (item) => Image(
                           image: AssetImage(item),
-                          width: 40,
-                          height: 40,
+                          width: 20,
+                          height: 20,
                         ),
                       )
                       .toList()),
-              Text(
-                "ROUND 6: DOCKS",
-                style: TextStyle(
-                  color: Color.fromRGBO(206, 17, 65, 1),
-                  fontFamily: 'PaybAck',
-                  fontSize: 30,
-                ),
+            ),
+            Text(
+              "STING NOMINATION",
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'PaybAck',
+                fontSize: 30,
               ),
-              Text(
-                "Timer: $_start",
-                style: TextStyle(
-                  color: Color.fromRGBO(206, 17, 65, 1),
-                  fontFamily: 'PaybAck',
-                  fontSize: 30,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: icons2
-                        .map<Widget>(
-                          (item) => Image(
-                            image: AssetImage(item),
-                            width: 20,
-                            height: 20,
-                          ),
-                        )
-                        .toList()),
-              ),
-              Text(
-                "STING NOMINATION",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'PaybAck',
-                  fontSize: 30,
-                ),
-              ),
-              leader2 != null
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.all(5),
-                          child: Text(
-                            'LEADER',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(5),
-                          child: Image(
-                            image: AssetImage(leader2["img"]),
-                            height: 45,
-                            width: 45,
-                          ),
-                        ),
-                        Text(
-                          leader2["name"],
+            ),
+            leader2 != null
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        child: Text(
+                          'LEADER',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ],
-                    )
-                  : Container(
-                      alignment: Alignment.center,
-                      child: new CircularProgressIndicator(
-                        valueColor: new AlwaysStoppedAnimation<Color>(
-                            Color(0xFFf44336)),
                       ),
-                    ),
-              Text(
-                "OPERATORS",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'PaybAck',
-                  fontSize: 30,
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        child: Image(
+                          image: AssetImage(leader2["img"]),
+                          height: 45,
+                          width: 45,
+                        ),
+                      ),
+                      Text(
+                        leader2["name"],
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  )
+                : Container(),
+            Text(
+              "OPERATORS",
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'PaybAck',
+                fontSize: 30,
+              ),
+            ),
+            choosedPlayers != null
+                ? Wrap(
+                    children: choosedPlayers
+                        .map<Widget>((item) => ChoosedPlayers(
+                              name: item["name"],
+                              img: item["img"],
+                            ))
+                        .toList())
+                : Container(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                VoteButtons(
+                  counterr: likeCount,
+                  shadowColor: Color.fromRGBO(0, 78, 56, 1),
+                  buttonColor: Color.fromRGBO(0, 138, 99, 1),
+                  icon: Icons.thumb_up,
+                  onPressed: incrementLike,
                 ),
-              ),
-              choosedPlayers != null
-                  ? Wrap(
-                      children: choosedPlayers
-                          .map<Widget>((item) => ChoosedPlayers(
-                                name: item["name"],
-                                img: item["img"],
-                              ))
-                          .toList())
-                  : Container(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  VoteButtons(
-                    counterr: likeCount,
-                    shadowColor: Color.fromRGBO(0, 78, 56, 1),
-                    buttonColor: Color.fromRGBO(0, 138, 99, 1),
-                    icon: Icons.thumb_up,
-                    onPressed: incrementLike,
-                  ),
-                  VoteButtons(
-                    counterr: dislikeCount,
-                    shadowColor: Color.fromRGBO(123, 7, 37, 1),
-                    buttonColor: Color.fromRGBO(206, 17, 65, 1),
-                    icon: Icons.thumb_down,
-                    onPressed: incrementDislike,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
+                VoteButtons(
+                  counterr: dislikeCount,
+                  shadowColor: Color.fromRGBO(123, 7, 37, 1),
+                  buttonColor: Color.fromRGBO(206, 17, 65, 1),
+                  icon: Icons.thumb_down,
+                  onPressed: incrementDislike,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

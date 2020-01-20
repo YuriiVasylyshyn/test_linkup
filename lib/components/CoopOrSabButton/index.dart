@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_linkup/components/succesOrSabotage/index.dart';
+import 'package:test_linkup/components/wrapper/index.dart';
 
 class CoopOrSab extends StatefulWidget {
   CoopOrSab(
@@ -41,8 +41,10 @@ class _CoopOrSabState extends State<CoopOrSab> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          SuccesOrSabotage(res: widget.onPressed == true)),
+                      builder: (context) => Wrapper(
+                            res: widget.onPressed == true,
+                            screen: 'succOrSab',
+                          )),
                 );
               },
               child: Container(

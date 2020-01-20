@@ -33,35 +33,35 @@ List players = [
   {
     "id": 3,
     "name": "Richard",
-    "img": "assets/img1.png",
+    "img": "assets/img3.png",
     "profiler": false,
     "informant": false
   },
   {
     "id": 4,
     "name": "Andrew",
-    "img": "assets/img2.png",
+    "img": "assets/img4.png",
     "profiler": false,
     "informant": false
   },
   {
     "id": 5,
     "name": "Adam",
-    "img": "assets/img1.png",
+    "img": "assets/img5.png",
     "profiler": false,
     "informant": false
   },
   {
     "id": 6,
     "name": "Kate",
-    "img": "assets/img8.png",
+    "img": "assets/img6.png",
     "profiler": false,
     "informant": false
   },
   {
     "id": 7,
     "name": "Loren",
-    "img": "assets/img9.png",
+    "img": "assets/img7.png",
     "profiler": false,
     "informant": false
   },
@@ -82,7 +82,7 @@ List players = [
   {
     "id": 10,
     "name": "Polly",
-    "img": "assets/img8.png",
+    "img": "assets/img10.png",
     "profiler": false,
     "informant": false
   }

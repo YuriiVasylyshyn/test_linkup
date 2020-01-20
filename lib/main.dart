@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_linkup/components/redButton/index.dart';
-
-import 'package:test_linkup/screens/stingNomination/index.dart';
+import 'package:test_linkup/components/wrapper/index.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -50,7 +49,9 @@ class Home extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => StingNomination()),
+                          builder: (context) => Wrapper(
+                                screen: 'sting',
+                              )),
                     );
                   },
                 ),
