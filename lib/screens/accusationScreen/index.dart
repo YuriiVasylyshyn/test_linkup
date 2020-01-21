@@ -45,8 +45,6 @@ class _AccusationScreenState extends State<AccusationScreen> {
   void toggleButton(data) {
     setState(() {
       check = data;
-      print(data);
-      print(check);
     });
   }
 
