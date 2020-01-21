@@ -30,18 +30,6 @@ class _AccusationScreenState extends State<AccusationScreen> {
     });
   }
 
-  // void profButton() {
-  //   setState(() {
-  //     check = true;
-  //   });
-  // }
-
-  // void infButton() {
-  //   setState(() {
-  //     check = false;
-  //   });
-  // }
-
   void toggleButton(data) {
     setState(() {
       check = data;
