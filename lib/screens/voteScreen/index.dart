@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:test_linkup/components/choosedPlayers/index.dart';
-import 'package:test_linkup/components/header/index.dart';
 import 'package:test_linkup/components/voteButton/index.dart';
 import 'dart:async';
 
@@ -78,11 +77,6 @@ class _VoteScreenState extends State<VoteScreen> {
     super.dispose();
   }
 
-  void remove() async {
-    await removeFromAsyncStorage("choosedPlayers");
-    await removeFromAsyncStorage('leader2');
-  }
-
   getData() async {
     var date = await getFromAsyncStorage('string', 'leader', true);
     var chosenPlayers =
@@ -95,121 +89,122 @@ class _VoteScreenState extends State<VoteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Header(),
-            Text(
-              "ROUND 6: DOCKS",
-              style: TextStyle(
-                color: Color.fromRGBO(206, 17, 65, 1),
-                fontFamily: 'PaybAck',
-                fontSize: 30,
-              ),
-            ),
-            Text(
-              "Timer: $_start",
-              style: TextStyle(
-                color: Color.fromRGBO(206, 17, 65, 1),
-                fontFamily: 'PaybAck',
-                fontSize: 30,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: icons2
-                      .map<Widget>(
-                        (item) => Image(
-                          image: AssetImage(item),
-                          width: 20,
-                          height: 20,
-                        ),
-                      )
-                      .toList()),
-            ),
-            Text(
-              "STING NOMINATION",
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'PaybAck',
-                fontSize: 30,
-              ),
-            ),
-            leader2 != null
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.all(5),
-                        child: Text(
-                          'LEADER',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(5),
-                        child: Image(
-                          image: AssetImage(leader2["img"]),
-                          height: 45,
-                          width: 45,
-                        ),
-                      ),
-                      Text(
-                        leader2["name"],
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+        Text(
+          "ROUND 6: DOCKS",
+          style: TextStyle(
+            color: Color.fromRGBO(206, 17, 65, 1),
+            fontFamily: 'PaybAck',
+            fontSize: 30,
+          ),
+        ),
+        Text(
+          "Timer: $_start",
+          style: TextStyle(
+            color: Color.fromRGBO(206, 17, 65, 1),
+            fontFamily: 'PaybAck',
+            fontSize: 30,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(60, 20, 60, 20),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: icons2
+                  .map<Widget>(
+                    (item) => Image(
+                      image: AssetImage(item),
+                      width: 20,
+                      height: 20,
+                    ),
                   )
-                : Container(),
-            Text(
-              "OPERATORS",
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'PaybAck',
-                fontSize: 30,
+                  .toList()),
+        ),
+        Text(
+          "STING NOMINATION",
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'PaybAck',
+            fontSize: 40,
+          ),
+        ),
+        leader2 != null
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: Text(
+                      'LEADER',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: Image(
+                      image: AssetImage(leader2["img"]),
+                      height: 45,
+                      width: 45,
+                    ),
+                  ),
+                  Text(
+                    leader2["name"],
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              )
+            : Container(),
+        Padding(
+          padding: EdgeInsets.all(15),
+          child: Text(
+            "OPERATORS",
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'PaybAck',
+              fontSize: 30,
+            ),
+          ),
+        ),
+        choosedPlayers != null
+            ? Wrap(
+                children: choosedPlayers
+                    .map<Widget>((item) => ChoosedPlayers(
+                          name: item["name"],
+                          img: item["img"],
+                        ))
+                    .toList())
+            : Container(),
+        Padding(
+          padding: EdgeInsets.only(top: 60),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              VoteButtons(
+                counterr: likeCount,
+                shadowColor: Color.fromRGBO(0, 78, 56, 1),
+                buttonColor: Color.fromRGBO(0, 138, 99, 1),
+                icon: Icons.thumb_up,
+                onPressed: incrementLike,
               ),
-            ),
-            choosedPlayers != null
-                ? Wrap(
-                    children: choosedPlayers
-                        .map<Widget>((item) => ChoosedPlayers(
-                              name: item["name"],
-                              img: item["img"],
-                            ))
-                        .toList())
-                : Container(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                VoteButtons(
-                  counterr: likeCount,
-                  shadowColor: Color.fromRGBO(0, 78, 56, 1),
-                  buttonColor: Color.fromRGBO(0, 138, 99, 1),
-                  icon: Icons.thumb_up,
-                  onPressed: incrementLike,
-                ),
-                VoteButtons(
-                  counterr: dislikeCount,
-                  shadowColor: Color.fromRGBO(123, 7, 37, 1),
-                  buttonColor: Color.fromRGBO(206, 17, 65, 1),
-                  icon: Icons.thumb_down,
-                  onPressed: incrementDislike,
-                ),
-              ],
-            ),
-          ],
+              VoteButtons(
+                counterr: dislikeCount,
+                shadowColor: Color.fromRGBO(123, 7, 37, 1),
+                buttonColor: Color.fromRGBO(206, 17, 65, 1),
+                icon: Icons.thumb_down,
+                onPressed: incrementDislike,
+              ),
+            ],
+          ),
         ),
       ],
     );

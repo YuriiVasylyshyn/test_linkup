@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:test_linkup/components/header/index.dart';
 import 'package:test_linkup/components/redButton/index.dart';
 import 'package:test_linkup/services/asyncStorage/index.dart';
 
@@ -69,24 +68,27 @@ class _HitmanScreenState extends State<HitmanScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Header(),
-            Text(
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 30, bottom: 10),
+            child: Text(
               'hitman',
               style: TextStyle(
-                  fontFamily: 'PaybAck', fontSize: 40, color: Colors.white),
+                  fontFamily: 'PaybAck', fontSize: 50, color: Colors.white),
             ),
-            Text(
-              'Congratulations FBI for \n comleting 4 sting \n operations!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontFamily: 'PaybAck', fontSize: 20, color: Colors.white),
-            ),
-            Text(
+          ),
+          Text(
+            'Congratulations FBI for \n comleting 4 sting \n operations!',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontFamily: 'PaybAck', fontSize: 26, color: Colors.white),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 20, bottom: 20),
+            child: Text(
               widget.chosenPlayer ? 'profiler' : 'informant',
               style: TextStyle(
                   decoration: timerEnd && aliveOrMurdered
@@ -98,70 +100,73 @@ class _HitmanScreenState extends State<HitmanScreen> {
                   fontSize: 30,
                   color: Colors.white),
             ),
-            choosedHitman != null
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Stack(
-                        overflow: Overflow.visible,
-                        children: <Widget>[
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(500),
-                            child: ColorFiltered(
-                              colorFilter: ColorFilter.mode(
-                                  timerEnd && !aliveOrMurdered
-                                      ? Colors.grey
-                                      : Colors.white.withOpacity(0),
-                                  BlendMode.color),
-                              child: Image(
-                                image: AssetImage(
-                                  choosedHitman["img"],
-                                ),
-                                height: 143,
-                                width: 143,
-                                fit: BoxFit.contain,
+          ),
+          choosedHitman != null
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Stack(
+                      overflow: Overflow.visible,
+                      children: <Widget>[
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(500),
+                          child: ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                                timerEnd && !aliveOrMurdered
+                                    ? Colors.grey
+                                    : Colors.white.withOpacity(0),
+                                BlendMode.color),
+                            child: Image(
+                              image: AssetImage(
+                                choosedHitman["img"],
                               ),
+                              height: 143,
+                              width: 143,
+                              fit: BoxFit.contain,
                             ),
                           ),
-                          Positioned(
-                            top: aliveOrMurdered ? 5 : 50,
-                            left: aliveOrMurdered ? 2 : 0,
-                            child: RotationTransition(
-                                turns: AlwaysStoppedAnimation(340 / 360),
-                                child: timerEnd
-                                    ? aliveOrMurdered
-                                        ? Image(
-                                            image:
-                                                AssetImage('assets/alive!.png'),
-                                            height: 70,
-                                            width: 90,
-                                          )
-                                        : Text(
-                                            'murdered!',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 32.5,
-                                              fontFamily: 'PaybAck',
-                                              color: Color.fromRGBO(
-                                                  206, 17, 65, 1),
-                                            ),
-                                          )
-                                    : null),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        choosedHitman["name"],
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
                         ),
+                        Positioned(
+                          top: aliveOrMurdered ? 5 : 50,
+                          left: aliveOrMurdered ? 2 : -10,
+                          child: RotationTransition(
+                              turns: AlwaysStoppedAnimation(340 / 360),
+                              child: timerEnd
+                                  ? aliveOrMurdered
+                                      ? Image(
+                                          image:
+                                              AssetImage('assets/alive!.png'),
+                                          height: 70,
+                                          width: 90,
+                                        )
+                                      : Text(
+                                          'murdered!',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 32.5,
+                                            fontFamily: 'PaybAck',
+                                            color:
+                                                Color.fromRGBO(206, 17, 65, 1),
+                                          ),
+                                        )
+                                  : null),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      choosedHitman["name"],
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  )
-                : Container(),
-            timerEnd
+                    ),
+                  ],
+                )
+              : Container(),
+          Padding(
+            padding: EdgeInsets.only(top: 25),
+            child: timerEnd
                 ? RedButton(
                     padding: true,
                     icon: null,
@@ -180,9 +185,9 @@ class _HitmanScreenState extends State<HitmanScreen> {
                         fontFamily: 'PaybAck',
                         color: Colors.white),
                   ),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }

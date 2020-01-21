@@ -20,54 +20,53 @@ class CoopOrSab extends StatefulWidget {
 class _CoopOrSabState extends State<CoopOrSab> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          height: 160,
-          width: 160,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                spreadRadius: 1,
-                offset: Offset(0, 2),
-                color: widget.shadowColor,
+    print('[OMPERSS] ${widget.onPressed}');
+    return Container(
+      height: 160,
+      width: 160,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            spreadRadius: 2,
+            offset: Offset(0, 2),
+            color: widget.shadowColor,
+          ),
+        ],
+      ),
+      child: RaisedButton(
+        shape: CircleBorder(),
+        color: widget.buttonColor,
+        padding: EdgeInsets.only(bottom: 15),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Wrapper(
+                      res: widget.onPressed,
+                      screen: 'succOrSab',
+                    )),
+          );
+        },
+        child: Padding(
+          padding: EdgeInsets.only(top: 45),
+          child: Column(
+            children: <Widget>[
+              Image(
+                image: AssetImage(widget.icon),
+                color: Colors.white,
+                height: 50,
+                width: 50,
+              ),
+              Text(
+                widget.text,
+                style: TextStyle(
+                    fontFamily: "PaybAck", fontSize: 25, color: Colors.white),
               ),
             ],
           ),
-          child: RaisedButton(
-              padding: EdgeInsets.only(bottom: 15),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Wrapper(
-                            res: widget.onPressed == true,
-                            screen: 'succOrSab',
-                          )),
-                );
-              },
-              child: Container(
-                child: Image(
-                  image: AssetImage(widget.icon),
-                  color: Colors.white,
-                  height: 45,
-                  width: 45,
-                ),
-              ),
-              shape: CircleBorder(),
-              color: widget.buttonColor),
         ),
-        Positioned(
-          right: 33,
-          bottom: 30,
-          child: Text(
-            widget.text,
-            style: TextStyle(
-                fontFamily: "PaybAck", fontSize: 20, color: Colors.white),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
