@@ -8,6 +8,7 @@ import 'package:test_linkup/components/usersCheckButton/index.dart';
 import 'package:test_linkup/services/asyncStorage/index.dart';
 
 import 'package:test_linkup/constants/listsToUse/index.dart';
+import 'package:test_linkup/services/navigation/index.dart';
 
 class StingNomination extends StatefulWidget {
   @override
@@ -51,13 +52,12 @@ class _StingNominationState extends State<StingNomination> {
       await addToAsyncStorage(
           'string', 'choosedPlayers', jsonEncode(choosedPlayers));
       await addToAsyncStorage('string', 'leader', jsonEncode(leader));
-      Navigator.push(
+      navigationReset(
           context,
-          MaterialPageRoute(
-              builder: (context) => Wrapper(
-                    screen: 'voteScreen',
-                    wallPaper: true,
-                  )));
+          Wrapper(
+            screen: 'voteScreen',
+            wallPaper: true,
+          ));
     });
   }
 

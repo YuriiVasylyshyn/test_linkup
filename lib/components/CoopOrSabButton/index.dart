@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:test_linkup/components/wrapper/index.dart';
+import 'package:test_linkup/services/navigation/index.dart';
 
 class CoopOrSab extends StatefulWidget {
   CoopOrSab(
-      {this.shadowColor,
-      this.buttonColor,
-      this.icon,
-      this.text,
-      this.onPressed});
+      {this.shadowColor, this.buttonColor, this.icon, this.text, this.push});
   final shadowColor;
   final buttonColor;
   final icon;
   final text;
-  final onPressed;
+  final push;
   @override
   _CoopOrSabState createState() => _CoopOrSabState();
 }
@@ -20,7 +17,6 @@ class CoopOrSab extends StatefulWidget {
 class _CoopOrSabState extends State<CoopOrSab> {
   @override
   Widget build(BuildContext context) {
-    print('[OMPERSS] ${widget.onPressed}');
     return Container(
       height: 160,
       width: 160,
@@ -39,15 +35,13 @@ class _CoopOrSabState extends State<CoopOrSab> {
         color: widget.buttonColor,
         padding: EdgeInsets.only(bottom: 15),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => Wrapper(
-                      res: widget.onPressed,
-                      screen: 'succOrSab',
-                      wallPaper: widget.onPressed ? false : true,
-                    )),
-          );
+          navigationReset(
+              context,
+              Wrapper(
+                res: widget.push,
+                screen: 'succOrSab',
+                wallPaper: widget.push ? false : true,
+              ));
         },
         child: Padding(
           padding: EdgeInsets.only(top: 45),

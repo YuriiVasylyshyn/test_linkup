@@ -7,6 +7,7 @@ import 'package:test_linkup/components/wrapper/index.dart';
 import 'package:test_linkup/services/asyncStorage/index.dart';
 
 import 'package:test_linkup/constants/listsToUse/index.dart';
+import 'package:test_linkup/services/navigation/index.dart';
 
 class VoteScreen extends StatefulWidget {
   @override
@@ -41,17 +42,27 @@ class _VoteScreenState extends State<VoteScreen> {
       (Timer timer) => setState(
         () {
           if (_start < 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Wrapper(
-                        screen: 'voteResult',
-                        res: likeCount > dislikeCount,
-                        countLike: likeCount,
-                        countDislike: dislikeCount,
-                        wallPaper: true,
-                      )),
-            );
+            navigationReset(
+                context,
+                Wrapper(
+                  screen: 'voteResult',
+                  res: likeCount > dislikeCount,
+                  countLike: likeCount,
+                  countDislike: dislikeCount,
+                  wallPaper: true,
+                ));
+
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //       builder: (context) => Wrapper(
+            //             screen: 'voteResult',
+            //             res: likeCount > dislikeCount,
+            //             countLike: likeCount,
+            //             countDislike: dislikeCount,
+            //             wallPaper: true,
+            //           )),
+            // );
           } else {
             _start = _start - 1;
           }

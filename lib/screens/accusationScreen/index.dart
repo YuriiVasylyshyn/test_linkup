@@ -6,6 +6,7 @@ import 'package:test_linkup/components/usersCheckButton/index.dart';
 import 'package:test_linkup/components/wrapper/index.dart';
 import 'package:test_linkup/constants/listsToUse/index.dart';
 import 'package:test_linkup/services/asyncStorage/index.dart';
+import 'package:test_linkup/services/navigation/index.dart';
 
 class AccusationScreen extends StatefulWidget {
   void remove() async {
@@ -39,11 +40,8 @@ class _AccusationScreenState extends State<AccusationScreen> {
   void navigate() async {
     await addToAsyncStorage(
         'string', 'choosedPlayer', jsonEncode(choosedPlayer));
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Wrapper(
-                screen: 'hitmanScreen', chosenPlayer: check, wallPaper: true)));
+    navigationReset(context,
+        Wrapper(screen: 'hitmanScreen', chosenPlayer: check, wallPaper: true));
   }
 
   @override

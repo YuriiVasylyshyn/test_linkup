@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:test_linkup/components/CoopOrSabButton/index.dart';
-import 'package:test_linkup/components/wrapper/index.dart';
 
 class PlaceYourVote extends StatefulWidget {
   @override
@@ -38,14 +37,14 @@ class _PlaceYourVoteState extends State<PlaceYourVote> {
                 buttonColor: Color.fromRGBO(31, 92, 154, 1),
                 icon: 'assets/icons/fbi_icon.png',
                 text: 'cooperate',
-                onPressed: true,
+                push: true,
               ),
               CoopOrSab(
                 shadowColor: Color.fromRGBO(113, 4, 31, 1),
                 buttonColor: Color.fromRGBO(206, 17, 65, 1),
                 icon: 'assets/icons/icon_incognito.png',
                 text: 'sabotage',
-                onPressed: false,
+                push: false,
               ),
             ],
           ),

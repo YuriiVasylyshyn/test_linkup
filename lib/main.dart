@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_linkup/components/redButton/index.dart';
 import 'package:test_linkup/components/wrapper/index.dart';
+import 'package:test_linkup/services/navigation/index.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -46,12 +47,12 @@ class Home extends StatelessWidget {
                   text: 'New Game',
                   icon: Icons.arrow_right,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              Wrapper(screen: 'sting', wallPaper: true)),
-                    );
+                    navigationReset(
+                        context,
+                        Wrapper(
+                          screen: 'sting',
+                          wallPaper: true,
+                        ));
                   },
                 ),
               ),

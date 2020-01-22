@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:test_linkup/components/choosedPlayers/index.dart';
 
 import 'package:test_linkup/components/wrapper/index.dart';
+import 'package:test_linkup/main.dart';
 import 'package:test_linkup/services/asyncStorage/index.dart';
 import 'package:test_linkup/components/redButton/index.dart';
-
-import '../../main.dart';
+import 'package:test_linkup/services/navigation/index.dart';
 
 class SuccesOrSabotage extends StatefulWidget {
   SuccesOrSabotage({this.res});
@@ -32,13 +32,8 @@ class _SuccesOrSabotageState extends State<SuccesOrSabotage> {
   }
 
   void navigate() {
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(
-          builder: (context) => widget.res
-              ? Wrapper(screen: 'accusScreen', wallPaper: true)
-              : Home()),
-    );
+    navigationReset(context,
+        widget.res ? Wrapper(screen: 'accusScreen', wallPaper: true) : Home());
   }
 
   @override

@@ -3,9 +3,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:test_linkup/components/redButton/index.dart';
+import 'package:test_linkup/main.dart';
 import 'package:test_linkup/services/asyncStorage/index.dart';
-
-import '../../main.dart';
+import 'package:test_linkup/services/navigation/index.dart';
 
 class HitmanScreen extends StatefulWidget {
   HitmanScreen({this.chosenPlayer});
@@ -172,10 +172,7 @@ class _HitmanScreenState extends State<HitmanScreen> {
                     icon: null,
                     text: 'Next',
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Home()),
-                      );
+                      navigationReset(context, Home());
                     },
                   )
                 : Text(

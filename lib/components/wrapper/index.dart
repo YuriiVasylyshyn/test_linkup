@@ -62,11 +62,6 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.screen == 'succOrSab') {
-      print('[screeN] ${widget.screen}');
-      print('[RES] ${widget.res}');
-    }
-
     return Scaffold(
       body: Container(
         height: double.infinity,

@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:test_linkup/components/voteButton/index.dart';
 import 'package:test_linkup/components/wrapper/index.dart';
 import 'package:test_linkup/services/asyncStorage/index.dart';
+import 'package:test_linkup/services/navigation/index.dart';
 
 class VoteResult extends StatefulWidget {
   VoteResult({this.res, this.countLike, this.countDislike});
@@ -26,14 +27,12 @@ class _VoteResultState extends State<VoteResult> {
       (Timer timer) => setState(
         () {
           if (_start < 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Wrapper(
-                        screen: widget.res ? 'voteOrSting' : 'sting',
-                        wallPaper: true,
-                      )),
-            );
+            navigationReset(
+                context,
+                Wrapper(
+                  screen: widget.res ? 'voteOrSting' : 'sting',
+                  wallPaper: true,
+                ));
           } else {
             _start = _start - 1;
           }
