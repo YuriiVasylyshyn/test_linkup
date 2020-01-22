@@ -42,8 +42,8 @@ class _AccusationScreenState extends State<AccusationScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                Wrapper(screen: 'hitmanScreen', chosenPlayer: check)));
+            builder: (context) => Wrapper(
+                screen: 'hitmanScreen', chosenPlayer: check, wallPaper: true)));
   }
 
   @override

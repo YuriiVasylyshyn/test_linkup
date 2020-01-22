@@ -49,6 +49,7 @@ class _VoteScreenState extends State<VoteScreen> {
                         res: likeCount > dislikeCount,
                         countLike: likeCount,
                         countDislike: dislikeCount,
+                        wallPaper: true,
                       )),
             );
           } else {

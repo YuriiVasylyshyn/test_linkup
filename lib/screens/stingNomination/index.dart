@@ -54,7 +54,10 @@ class _StingNominationState extends State<StingNomination> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => Wrapper(screen: 'voteScreen')));
+              builder: (context) => Wrapper(
+                    screen: 'voteScreen',
+                    wallPaper: true,
+                  )));
     });
   }
 

@@ -45,6 +45,7 @@ class _CoopOrSabState extends State<CoopOrSab> {
                 builder: (context) => Wrapper(
                       res: widget.onPressed,
                       screen: 'succOrSab',
+                      wallPaper: widget.onPressed ? false : true,
                     )),
           );
         },

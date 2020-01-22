@@ -31,6 +31,7 @@ class _VoteResultState extends State<VoteResult> {
               MaterialPageRoute(
                   builder: (context) => Wrapper(
                         screen: widget.res ? 'voteOrSting' : 'sting',
+                        wallPaper: true,
                       )),
             );
           } else {

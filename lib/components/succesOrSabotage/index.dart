@@ -36,9 +36,7 @@ class _SuccesOrSabotageState extends State<SuccesOrSabotage> {
       context,
       MaterialPageRoute<void>(
           builder: (context) => widget.res
-              ? Wrapper(
-                  screen: 'accusScreen',
-                )
+              ? Wrapper(screen: 'accusScreen', wallPaper: true)
               : Home()),
     );
   }
